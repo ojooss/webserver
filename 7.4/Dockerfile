@@ -3,9 +3,9 @@ FROM php:7.4-apache
 # --------------------------------------------------------------
 # initially update debian packages
 # --------------------------------------------------------------
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
-    apt-get clean
+#RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+#    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
+#    apt-get clean
 
 
 # --------------------------------------------------------------
