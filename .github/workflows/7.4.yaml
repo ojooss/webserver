@@ -25,7 +25,7 @@ jobs:
           docker build \
           --pull \
           --no-cache \
-          --tag ojooss/webserver:7.4-latest
+          --tag ojooss/webserver:7.4-latest \
           .
       - name: Login to Docker Hub
         if: github.ref == 'refs/heads/main'
