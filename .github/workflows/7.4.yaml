@@ -36,6 +36,6 @@ jobs:
         with:
           context: './7.4'
           file: ./7.4/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm/v7
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/webserver:7.4-latest
           push: true
