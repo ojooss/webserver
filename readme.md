@@ -89,3 +89,10 @@ It includes the following components:
         ssl_module (shared)
         status_module (shared)
 
+## Build docker images
+Clone this repo and run: 
+
+    docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:7.4-latest --push  .
+
+Due to long time running build process it could end up with `error: failed to solve: authorization status: 401: authorization failed`.
+It seems to be a timeout problem - in this case run again (by using cache ist much faster). 
