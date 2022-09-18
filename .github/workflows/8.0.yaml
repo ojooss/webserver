@@ -1,6 +1,8 @@
 name: Docker - 8.0
 
 on:
+  schedule:
+    - cron: '13 13 13 * *'
   push:
     paths:
       - .github/workflows/8.0.yaml

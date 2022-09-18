@@ -1,6 +1,8 @@
 name: Docker - 7.4
 
 on:
+  schedule:
+    - cron: '13 13 13 * *'
   push:
     paths:
       - .github/workflows/7.4.yaml
