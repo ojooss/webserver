@@ -1,0 +1,44 @@
+name: Docker - 8.2
+
+on:
+  schedule:
+    - cron: '13 13 13 * *'
+  push:
+    paths:
+      - .github/workflows/8.2.yaml
+      - '8.2/**'
+
+jobs:
+  build:
+    name: Build 8.2
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    defaults:
+      run:
+        working-directory: '8.2'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: all
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        timeout-minutes: 300
+        uses: docker/build-push-action@v2
+        with:
+          context: './8.2'
+          file: ./8.2/Dockerfile
+          platforms: linux/amd64,linux/arm/v7
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/webserver:8.2-latest
+          push: true
