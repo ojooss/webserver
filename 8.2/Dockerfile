@@ -60,13 +60,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 # add node.js and yarn
 # --------------------------------------------------------------
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https gnupg2 gcc g++ make -y \
-    && apt-get clean \
-    && curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -  \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-certificates curl gnupg2 \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && DEBIAN_FRONTEND=noninteractive apt-get update -y \
-    && DEBIAN_FRONTEND=noninteractive apt-get install  -y nodejs yarn
+    && DEBIAN_FRONTEND=noninteractive apt-get install  -y nodejs \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean \
+    && npm install --global yarn \
+    && mkdir /yarn && chmod a+rwx /yarn && yarn config set cache-folder /yarn
 
 
 # --------------------------------------------------------------
