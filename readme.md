@@ -92,9 +92,9 @@ It includes the following components:
 ## Build docker images
 Clone this repo and run: 
 
-    cd 7.4 && docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:7.4-latest --push  .
-    cd 8.0 && docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:8.0-latest --push  .
     cd 8.1 && docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:8.1-latest --push  .
+    cd 8.2 && docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:8.2-latest --push  .
+    cd 8.3 && docker buildx build --platform linux/amd64,linux/arm/v7 --tag ojooss/webserver:8.3-latest --push  .
 
 Due to long time running build process it could end up with `error: failed to solve: authorization status: 401: authorization failed`.
 It seems to be a timeout problem - in this case run again (by using cache ist much faster). 

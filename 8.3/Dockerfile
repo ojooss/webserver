@@ -35,12 +35,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     && apt-get clean \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install zip \
     && docker-php-ext-install bcmath \
-    && docker-php-ext-install sockets \
     && docker-php-ext-install intl \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-install zip \
     && pecl install mongodb && docker-php-ext-enable mongodb \
     && pecl install xdebug && docker-php-ext-enable xdebug
 
@@ -49,11 +49,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 # add imagemagick and ghostscript
 # --------------------------------------------------------------
 # from: https://pecl.php.net/package/imagick
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    libmagickwand-dev libmagickcore-dev ghostscript \
-    && apt-get clean \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+#    libmagickwand-dev libmagickcore-dev ghostscript \
+#    && apt-get clean \
+#    && pecl install imagick \
+#    && docker-php-ext-enable imagick
+#
+# -> install only if app needs
 
 
 # --------------------------------------------------------------
