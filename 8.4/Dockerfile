@@ -27,6 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         libzip-dev \
         libcurl4-openssl-dev \
         libssl-dev \
+        libicu-dev \
         pkg-config \
         git \
 		zip \
