@@ -1,21 +1,21 @@
-name: Docker - 8.1
+name: Docker - 8.4
 
 on:
   schedule:
-    - cron: '13 13 13 * *'
+    - cron: '14 14 14 * *'
   push:
     paths:
-      - .github/workflows/8.1.yaml
-      - '8.1/**'
+      - .github/workflows/8.4.yaml
+      - '8.4/**'
 
 jobs:
   build:
-    name: Build 8.1
+    name: Build 8.4
     runs-on: ubuntu-latest
     timeout-minutes: 360
     defaults:
       run:
-        working-directory: '8.1'
+        working-directory: '8.4'
 
     steps:
       - name: Checkout
@@ -37,8 +37,8 @@ jobs:
         timeout-minutes: 300
         uses: docker/build-push-action@v2
         with:
-          context: './8.1'
-          file: ./8.1/Dockerfile
+          context: './8.4'
+          file: ./8.4/Dockerfile
           platforms: linux/amd64,linux/arm/v7
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/webserver:8.1-latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/webserver:8.4-latest
           push: true

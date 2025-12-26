@@ -1,4 +1,4 @@
-FROM php:8.3-apache
+FROM php:8.4-apache
 
 # --------------------------------------------------------------
 # initially update debian packages
@@ -10,7 +10,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 # --------------------------------------------------------------
 # add composer
 # --------------------------------------------------------------
-COPY --from=composer:1 /usr/bin/composer /usr/local/bin/composer_v1
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 
@@ -65,12 +64,19 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https ca-certificates curl gnupg2 \
     && mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
-    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" > /etc/apt/sources.list.d/nodesource.list \
     && DEBIAN_FRONTEND=noninteractive apt-get update -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install  -y nodejs \
     && DEBIAN_FRONTEND=noninteractive apt-get clean \
-    && npm install --global yarn \
-    && mkdir /yarn && chmod a+rwx /yarn && yarn config set cache-folder /yarn
+    && mkdir /npm && chmod a+rwx /npm && npm config set cache /npm
+
+
+# --------------------------------------------------------------
+# Symfony CLI installieren
+# --------------------------------------------------------------
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y symfony-cli \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean
 
 
 # --------------------------------------------------------------
